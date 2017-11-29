@@ -1,0 +1,42 @@
+#!/bin/sh
+# dirname $0，取得当前执行的脚本文件的父目录
+# cd `dirname $0`，进入这个目录(切换当前工作目录)
+
+# cd `dirname $0` 
+#alias gitadd='cd `dirname $0` && git add . && git commit -m /!* && git push'
+#!/bin/bash
+#
+# NOTE: You need to `brew install git` on Mac
+# 
+# by @kunnan
+# https://github.com/zhangkn/KNAlipayWalletTweakDemo
+# 在存在的项目中，创建git 仓库，并上传到远程仓库地址
+#
+# usage: kngitinit  SSHURL git@github.com:zhangkn/KNAlipayWalletTweakDemo.git
+
+
+usage() {
+  echo "在存在的项目中，创建git 仓库，并上传到远程仓库地址"
+  echo
+  echo "Usage: $0 {SSHURL}"
+}
+
+if [ ! -n "$1" ] ;then
+  echo "Invalid url $1"
+  usage
+  exit 1
+fi
+# 变量赋值不要有空格
+var=$1
+##*/ 表示从左边开始删除最后（最右边）一个 / 号及左边的所有字符 即删除 git@github.com:zhangkn/ 结果是 KNAlipayWalletTweakDemo.git
+var=${var##*/}
+#%/* 表示从右边开始，删除第一个 / 号及右边的字符
+var=${var%.*}
+echo "# $var" >> README.md
+#echo "# " >> README.md
+git init
+git add .
+git commit -m "first commit"
+git remote add origin $1
+git push -u origin master
+exit 0

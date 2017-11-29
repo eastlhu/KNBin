@@ -1,0 +1,10 @@
+#!/bin/sh
+# dirname $0，取得当前执行的脚本文件的父目录
+# cd `dirname $0`，进入这个目录(切换当前工作目录)
+
+# cd `dirname $0` 
+#alias gitadd='cd `dirname $0` && git add . && git commit -m /!* && git push'
+git add .
+git commit -m $1
+git push
+exit 0
