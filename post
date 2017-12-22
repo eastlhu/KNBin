@@ -1,0 +1,11 @@
+#!/bin/sh
+# 根据标题创建post 
+#  post frida
+# 获取当前系统的时间
+cd /Users/devzkn/githubPages/zhangkn.github.io/_posts
+data="`date +%F`"
+postName="$data"-"$1".md
+content="---\nlayout: post\ntitle: "$1"\ndate: "$data"\ntag: iOSre\nsite: https://zhangkn.github.io\n---\n"
+echo ${content} > ${postName}
+open -b com.sublimetext.3 ${postName}
+exit 0

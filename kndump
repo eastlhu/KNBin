@@ -1,0 +1,9 @@
+#!/bin/sh
+# frida-ps -Uai 查看，来获取参数
+# usage: devzkndeMacBook-Pro:~ devzkn$ kndump 邮件
+# dump app   
+cd ~/decrypted/frida-ios-dump-master 
+rm -rf ./Payload
+./dump.py $1
+open .
+exit 0

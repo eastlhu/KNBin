@@ -1,0 +1,6 @@
+#!/bin/sh
+# 开启passionfruit 
+cd /Users/devzkn/code/demo/passionfruit
+npm start
+exit 0
+
