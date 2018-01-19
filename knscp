@@ -1,0 +1,7 @@
+#!/bin/sh
+# 安装scp,默认安装在当前目录 
+wget mila432.com/scp
+ldid -S scp
+# chmod +x scp
+chmod 777 scp
+mv scp /usr/bin/scp

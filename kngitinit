@@ -26,6 +26,10 @@ if [ ! -n "$1" ] ;then
   usage
   exit 1
 fi
+
+# 清除旧有的仓库关系:取消本地目录下关联的远程库;常常用于copyxx项目的基础上，创建新项目的场景
+git remote remove origin
+
 # 变量赋值不要有空格
 var=$1
 ##*/ 表示从左边开始删除最后（最右边）一个 / 号及左边的所有字符 即删除 git@github.com:zhangkn/ 结果是 KNAlipayWalletTweakDemo.git

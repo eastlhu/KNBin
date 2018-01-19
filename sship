@@ -1,0 +1,5 @@
+#!/bin/sh
+# devzkndeMacBook-Pro:mplink devzkn$ sship 192.168.2.183
+postName="root@"$1
+ssh-copy-id -i ~/.ssh/id_rsa_Theos125 $postName
+exit 0
