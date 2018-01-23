@@ -1,0 +1,16 @@
+#!/bin/sh
+# devzkndeMacBook-Pro:mplink devzkn$ sship 192.168.2.183
+# postName="root@"$1
+# ssh-copy-id -i ~/.ssh/id_rsa_Theos125 $postName
+
+echo "" > ~/.ssh/known_hosts
+# Private usb2222
+# Host usb2222
+# Port 2222 
+# HostName localhost
+# User root
+# IdentityFile ~/.ssh/id_rsa_Theos125
+# sship usb2222
+# alias sshusb='ssh root@localhost -p 2222'
+ssh root@localhost -p 2222
+# sshsub
