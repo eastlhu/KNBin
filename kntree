@@ -1,0 +1,8 @@
+
+#!/bin/sh
+#strings AppStore > strings_AppStore.txt
+# kntree strings.text
+# python ~/bin/list_dir_tree.py  /Users/devzkn/strings.text >  /Users/devzkn/tree.text
+python ~/bin/list_dir_tree.py $1 > /Users/devzkn/decrypted/tree/new.text
+open /Users/devzkn/decrypted/tree
+exit 0
