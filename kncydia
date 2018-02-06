@@ -1,0 +1,29 @@
+#!/bin/sh
+    # sh  ~/bin/kncydia   Creating a Repository
+# dpkg-scanpackages: info: Wrote 1 entries to output Packages file.
+# python -m SimpleHTTPServer 8088
+# ~/cydia
+function kncydia(){
+    # 建立index
+    cd ~/cydia 
+    rm -rf ~/cydia/Packages.bz
+    rm -rf ~/cydia/Packages.bz2
+    rm  -rf ~/cydia/Packages
+    dpkg-scanpackages ~/cydia/debs /dev/null > ~/cydia/Packages
+# 利用 bzip2 生成 Cydia 可以识别的文件格式
+bzip2 ~/cydia/Packages
+
+# tar zcvf Packages.gz Packages
+# bzip2 -k Packages Packages.bz2
+# 制作 Release【Optional】
+}
+
+kncydia
+
+open ~/cydia
+cd ~
+python -m SimpleHTTPServer 8088
+
+open http://127.0.0.1:8088/cydia/
+
+exit 0
