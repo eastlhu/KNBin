@@ -11,7 +11,7 @@ function kncydia(){
     rm -rf ~/cydia/Packages.bz
     rm -rf ~/cydia/Packages.bz2
     rm  -rf ~/cydia/Packages
-    # Packages去掉路径前缀
+    # Packages去掉路径前缀, debs 最好使用相对路径
     dpkg-scanpackages debs /dev/null > Packages
 # 利用 bzip2 生成 Cydia 可以识别的文件格式
 bzip2 ~/cydia/Packages
