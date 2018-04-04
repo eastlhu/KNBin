@@ -1,0 +1,50 @@
+#!/bin/sh
+# knanalyzinghead 获取并分析头文件
+# devzkndeMBP:bin devzkn$ swiftOCclass-dump  --arch arm64 /Users/devzkn/decrypted/AppStoreV10.2/Payload/AppStore.app/AppStore -H -o  /Users/devzkn/decrypted/AppStoreV10.2/head
+# start dump head 
+# devzkndeMacBook-Pro:tmp devzkn$ knhead /Users/devzkn/Downloads/tmp/tmp
+# $1  二进制文件的路径
+function kndump() {
+
+echo $1 
+cd  `dirname $1` # 进入可执行文件的目录
+swiftOCclass-dump $1 -H -o ../head
+open ../head
+cd ../head
+}
+
+kndump $1
+
+# end dump head 
+
+# supotato -i /Users/devzkn/head  -o  .   
+# 头文件简单的分类报告，同时猜测使用了哪些第三方库CocoaPods
+# cd ~/decrypted/frida-ios-dump-master 
+# rm -rf ./Payload
+rm -rf result.txt
+supotato -i .  -o  .
+# ./dump.py $1
+# echo $1 >> result.txt
+ # $ cd `dirname $0` 是毫无意义的。因为他返回当前路径的"."  
+ # 这个命令写在脚本文件里才有作用，他返回这个脚本文件放置的目录  ---/Users/devzkn/bin
+# echo `dirname $0` >> result.txt
+# Linux下在文件内部指定行（首行、末尾行等）插入内容
+(echo `pwd` | cat - result.txt > result1.txt)  &&  mv result1.txt result.txt
+echo -e "\n"  >> result.txt
+
+# 1、在文件的首行插入指定内容：
+
+	# sed -i "1i#!  `pwd`" result.txt
+
+echo   `pwd`  >> result.txt
+
+
+cp result.txt ../
+
+cd ../
+
+open .
+
+open -e  result.txt
+
+exit 0

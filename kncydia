@@ -25,8 +25,8 @@ kncydia
 
 open ~/cydia
 
-python -m SimpleHTTPServer 8088
-open http://127.0.0.1:8088/cydia/
+# python -m SimpleHTTPServer 8088
+# open http://127.0.0.1:8088/cydia/
 
 #  部署方式 ~/cydia 下执行python -m SimpleHTTPServer 8088  ，cydia 添加http://192.168.2.189:8088/ 源即可
 exit 0
