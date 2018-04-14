@@ -1,5 +1,17 @@
 #!/bin/sh
-# devzkndeMacBook-Pro:mplink devzkn$ sship 192.168.2.183
+# devzkndeMacBook-Pro:mplink devzkn$ sship 192.168.2.183  #默认root 用户
+#sship -u  user@192.168.2.107
+
+if [ "$1" = "-u"  ] ;then
+
+ssh-copy-id -i ~/.ssh/id_rsa_Theos125 $2
+ 
+#elif  [ "$1" = "ip"  ] ;then
+
+else
 postName="root@"$1
 ssh-copy-id -i ~/.ssh/id_rsa_Theos125 $postName
+  
+fi
+
 exit 0

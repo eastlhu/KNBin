@@ -1,0 +1,7 @@
+#!/bin/sh
+  # 上传文件到服务器，即更新deb cydia 源
+  # if [ "$1" == ""  ] ;then
+  	sh  ~/bin/kncydia
+  	scp -r ~/cydia cydia://home/ftpuser
+  # fi
+  exit 0
