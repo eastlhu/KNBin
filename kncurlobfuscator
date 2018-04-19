@@ -1,0 +1,12 @@
+#!/bin/sh
+  # 上传文件到服务器，即更新deb cydia 源
+  # if [ "$1" == ""  ] ;then
+  mr -rf obfuscate_project
+  
+  curl -o obfuscate_project https://raw.githubusercontent.com/Polidea/ios-class-guard/master/contrib/obfuscate_project && chmod +x obfuscate_project
+
+  ls -lrt 
+
+  open -e obfuscate_project
+  # fi
+  exit 0

@@ -1,11 +1,37 @@
 #!/bin/sh
-# 根据标题创建post 
+# 根据标题创建post ,#第一个参数是标题，第二个个参数的分类tag devzkndeMacBook-Pro:zhangkn.github.io devzkn$ post PowerfulClanSociety -t OutlineOfChineseHistory
 #  post frida
 # 获取当前系统的时间
 cd /Users/devzkn/githubPages/zhangkn.github.io/_posts
+
+
+#第一个参数是标题，第二个参数的分类tag
+function knpost() {
+echo $1
 data="`date +%F`"
 postName="$data"-"$1".md
-content="---\nlayout: post\ntitle: "$1"\ndate: "$data"\ntag: iOSre\nsite: https://zhangkn.github.io\n---\n"
+content="---\nlayout: post\ntitle: "$1"\ndate: "$data"\ntag: "$2"\nsite: https://zhangkn.github.io\ncatalog: true\n---\n"
 echo ${content} > ${postName}
 open -b com.sublimetext.3 ${postName}
+
+}
+
+if [ "$2" = "-t"  ] ;then
+
+mkdir -p $3
+
+cd $3
+
+knpost $1 $3
+
+
+#elif  [ "$1" = "ip"  ] ;then
+ 
+else
+
+  knpost $1 "iOSre"
+
+fi
+
+
 exit 0

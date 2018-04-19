@@ -11,6 +11,6 @@
 echo "" > ~/.ssh/known_hosts
 cd ~/decrypted/frida-ios-dump-master 
 rm -rf ./Payload
-./dump.py $1
+/usr/bin/python ./dump.py $1
 open .
 exit 0
