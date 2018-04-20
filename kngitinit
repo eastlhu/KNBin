@@ -38,7 +38,7 @@ var=${var##*/}
 var=${var%.*}
 echo "# $var" >> README.md
 #echo "# " >> README.md
-cp /Users/devzkn/code/.gitignore .
+cat /Users/devzkn/code/.gitignore >> .gitignore
 git init
 git add .
 git commit -m "first commit"
