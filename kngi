@@ -1,0 +1,6 @@
+
+#!/bin/sh
+# 通过 gitignore.io 创建gitignore
+# function gi() { curl -L -s https://www.gitignore.io/api/\$@ ;}
+
+curl -L -s https://www.gitignore.io/api/$1
