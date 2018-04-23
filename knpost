@@ -28,8 +28,8 @@ if [ "$3" = "-t"  ] ;then
 mkdir -p $4
 
 cd $4
-# 标题、子标题、标签
-knpost $1  $2 $4
+# 标题、子标题、标签  "$2",是想要获取整个参数：Advanced Google Dorking Commands； $2 将只是Advanced
+knpost $1  "$2" $4
 
 
 #elif  [ "$1" = "ip"  ] ;then
