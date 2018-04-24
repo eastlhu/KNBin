@@ -4,7 +4,7 @@
 # 获取当前系统的时间
 cd /Users/devzkn/githubPages/kunnan.github.io.git/_posts
 #  knpost currency  "<吴军的谷歌方法论>之'货币的起源及其特质'" -t GoogleMethodology
-kncommand=">* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) \n\`\`\`\n$0 $*\n> #原来\"\"的参数，需要自己加上\"\"\n\`\`\`\n"
+kncommand=">* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) >\n\`\`\`\n$0 $*\n> #原来\"\"的参数，需要自己加上\"\"\n\`\`\`\n"
 echo "$kncommand"
 # /Users/devzkn/bin/knpost currency <吴军的谷歌方法论>之'货币的起源及其特质' -t GoogleMethodology
 #  原来""的参数，需要自己加上""
@@ -21,6 +21,9 @@ echo  ${kncommand} >> ${postName}
 # open -b com.sublimetext.3 ${postName}
 # Opens with the specified application bundle identifier. com.uranusjr.macdown
 open -b com.uranusjr.macdown ${postName}
+
+echo ${postName}
+
 }
 
 if [ "$3" = "-t"  ] ;then
