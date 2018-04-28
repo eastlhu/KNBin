@@ -1,0 +1,152 @@
+
+#!/bin/sh
+# 通过 打ipa包
+# ===============================项目自定义部分============================= #
+# .xcworkspace项目,赋值true;用Xcode默认创建的.xcodeproj,赋值false
+is_workspace="true"
+# 指定项目的scheme名称，最好修改成参数传递进来
+# scheme_name="you_scheme_name"
+# 工程中Target对应的配置plist文件名称, Xcode默认的配置文件为Info.plist
+info_plist_name="Info"
+# 打包编译的方式 : Release,Debug Debug
+build_configuration="Debug"
+
+# ===============================自动打包部分()============================= #
+
+# ExportOptionsPlistPath
+ExportOptionsPlistPath="~/iOSAutoArchiveScript/developmentExportOptionsPlist.plist"
+# mkdir -p ~/AutoArchive/$scheme_name-IPA/
+
+# 获取项目名称
+project_name=`find . -name *.xcodeproj | awk -F "[/.]" '{print $(NF-1)}'`
+# 获取版本号,内部版本号,bundleID
+echo "project_name:"-"$project_name"
+InfoPlistPath="$project_name/$info_plist_name.plist"
+bundle_version=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" $InfoPlistPath`
+bundle_build_version=`/usr/libexec/PlistBuddy -c "Print CFBundleIdentifier" $InfoPlistPath`
+bundle_identifier=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" $InfoPlistPath`
+
+
+scheme_name="$project_name"
+echo "scheme_name:"-"$scheme_name"
+# 指定输出ipa路径
+export_path=~/AutoArchive/$scheme_name-IPA
+export_ipa_path="$export_path"
+
+# 指定输出归档文件地址
+export_archive_path="$export_path/$scheme_name.xcarchive"
+
+ # 删除旧.xcarchive文件
+rm -rf export_archive_path
+
+# 指定输出ipa名称 : scheme_name + bundle_version
+ipa_name="$scheme_name-v$bundle_version"
+
+
+echo "================请选择打包方式(输入序号,按回车即可)================"
+echo "                1 AdHoc       内测        "
+echo "                2 AppStore    上架        "
+echo "                3 Enterprise  企业        "
+echo "                4 development 开发--默认,直接按回车        "
+echo "                q Exit        退出        "
+echo "================请选择打包方式(输入序号,按回车即可)================"
+
+
+# 读取用户输入并存到变量里
+read parameter
+sleep 0.5
+method="$parameter"
+
+
+
+# 判读用户是否有输入
+if [ -n "$method" ]
+then
+    if [ "$method" = "1" ] ; then
+    ExportOptionsPlistPath="./iOSAutoArchiveScript/AdHocExportOptionsPlist.plist"
+    elif [ "$method" = "2" ] ; then
+    ExportOptionsPlistPath="./iOSAutoArchiveScript/AppStoreExportOptionsPlist.plist"
+    elif [ "$method" = "3" ] ; then
+    ExportOptionsPlistPath="./iOSAutoArchiveScript/EnterpriseExportOptionsPlist.plist"
+	# elif [ "$method" = "4" ] ; then
+    elif [ "$method" = "q" ] ; then
+    echo "退出！"
+    exit 1
+    else
+    echo "输入的参数无效，请重新选择!!!"
+    exit 1
+    fi
+fi
+
+
+echo "**************************开始编译代码...*********************************"
+# 指定输出文件目录不存在则创建
+function knmkdir() {
+	if [ -d "$export_path" ] ; then
+		echo $export_path
+	else
+		mkdir -pv $export_path
+	fi
+
+}
+
+knmkdir
+
+
+function knxcodebuild() {
+
+# 编译前清理工程
+xcodebuild clean -workspace ${project_name}.xcworkspace \
+                 -scheme ${scheme_name} \
+                 -configuration ${build_configuration}
+
+xcodebuild archive -workspace ${project_name}.xcworkspace \
+                   -scheme ${scheme_name} \
+                   -configuration ${build_configuration} \
+                   -archivePath ${export_archive_path}
+
+}
+
+
+# 判断编译的项目类型是workspace还是project
+if $is_workspace ; then
+
+knxcodebuild
+
+
+else
+# 编译前清理工程
+xcodebuild clean -project ${project_name}.xcodeproj \
+                 -scheme ${scheme_name} \
+                 -configuration ${build_configuration}
+
+xcodebuild archive -project ${project_name}.xcodeproj \
+                   -scheme ${scheme_name} \
+                   -configuration ${build_configuration} \
+                   -archivePath ${export_archive_path}
+fi
+
+
+
+#  检查是否构建成功
+#  xcarchive 实际是一个文件夹不是一个文件所以使用 -d 判断
+if [ -d "$export_archive_path" ] ; then
+echo " ✅  ✅  ✅  ✅  ✅  ✅  编译成功  ✅  ✅  ✅  ✅  ✅  ✅  "
+else
+echo " ❌  ❌  ❌  ❌  ❌  ❌  编译失败  ❌  ❌  ❌  ❌  ❌  ❌  "
+exit 1
+fi
+
+
+
+echo "**************************开始导出ipa文件....*********************************"
+
+
+
+
+
+
+
+
+
+

@@ -1,15 +1,8 @@
-
-
-
-
 #!/bin/sh
-# dirname $0，取得当前执行的脚本文件的父目录
-# cd `dirname $0`，进入这个目录(切换当前工作目录)
-
-# cd `dirname $0` 
-#alias gitadd='cd `dirname $0` && git add . && git commit -m /!* && git push'
+git pull
 git status
 git add .
-git commit -m $1
+# $1 和“$1” 的区别，在于，$1 返回的是一个char数组，“$1” 返回的是一个字符串
+git commit -m "$1"
 git push
 exit 0
