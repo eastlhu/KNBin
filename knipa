@@ -1,4 +1,4 @@
-
+# cd /Users/devzkn/code/cocoapodDemo/podDemo/KNBaseWebViewControllerDemo
 #!/bin/sh
 # 通过 打ipa包
 # ===============================项目自定义部分============================= #
@@ -14,7 +14,7 @@ build_configuration="Debug"
 # ===============================自动打包部分()============================= #
 
 # ExportOptionsPlistPath
-ExportOptionsPlistPath="~/iOSAutoArchiveScript/developmentExportOptionsPlist.plist"
+ExportOptionsPlistPath="/Users/devzkn/iOSAutoArchiveScript/developmentExportOptionsPlist.plist"
 # mkdir -p ~/AutoArchive/$scheme_name-IPA/
 
 # 获取项目名称
@@ -47,7 +47,8 @@ echo "================请选择打包方式(输入序号,按回车即可)=======
 echo "                1 AdHoc       内测        "
 echo "                2 AppStore    上架        "
 echo "                3 Enterprise  企业        "
-echo "                4 development 开发--默认,直接按回车        "
+echo "                development 开发--默认,直接按回车        "
+echo "                4 进行ipa 包的导出        "
 echo "                q Exit        退出        "
 echo "================请选择打包方式(输入序号,按回车即可)================"
 
@@ -56,7 +57,6 @@ echo "================请选择打包方式(输入序号,按回车即可)=======
 read parameter
 sleep 0.5
 method="$parameter"
-
 
 
 # 判读用户是否有输入
@@ -68,11 +68,18 @@ then
     ExportOptionsPlistPath="./iOSAutoArchiveScript/AppStoreExportOptionsPlist.plist"
     elif [ "$method" = "3" ] ; then
     ExportOptionsPlistPath="./iOSAutoArchiveScript/EnterpriseExportOptionsPlist.plist"
-	# elif [ "$method" = "4" ] ; then
+
+    elif [ "$method" = "4" ] ; then
+    method=4;
+
     elif [ "$method" = "q" ] ; then
+
     echo "退出！"
+
     exit 1
+
     else
+
     echo "输入的参数无效，请重新选择!!!"
     exit 1
     fi
@@ -107,23 +114,24 @@ xcodebuild archive -workspace ${project_name}.xcworkspace \
 
 }
 
+function knxcodebuildprojectorworkspace() {
 
-# 判断编译的项目类型是workspace还是project
-if $is_workspace ; then
+  # 判断编译的项目类型是workspace还是project
+  if $is_workspace ; then
 
-knxcodebuild
+    knxcodebuild
 
 
-else
+  else
 # 编译前清理工程
 xcodebuild clean -project ${project_name}.xcodeproj \
-                 -scheme ${scheme_name} \
-                 -configuration ${build_configuration}
+-scheme ${scheme_name} \
+-configuration ${build_configuration}
 
 xcodebuild archive -project ${project_name}.xcodeproj \
-                   -scheme ${scheme_name} \
-                   -configuration ${build_configuration} \
-                   -archivePath ${export_archive_path}
+-scheme ${scheme_name} \
+-configuration ${build_configuration} \
+-archivePath ${export_archive_path}
 fi
 
 
@@ -131,17 +139,63 @@ fi
 #  检查是否构建成功
 #  xcarchive 实际是一个文件夹不是一个文件所以使用 -d 判断
 if [ -d "$export_archive_path" ] ; then
-echo " ✅  ✅  ✅  ✅  ✅  ✅  编译成功  ✅  ✅  ✅  ✅  ✅  ✅  "
+  echo " ✅  ✅  ✅  ✅  ✅  ✅  编译成功  ✅  ✅  ✅  ✅  ✅  ✅  "
 else
-echo " ❌  ❌  ❌  ❌  ❌  ❌  编译失败  ❌  ❌  ❌  ❌  ❌  ❌  "
-exit 1
+  echo " ❌  ❌  ❌  ❌  ❌  ❌  编译失败  ❌  ❌  ❌  ❌  ❌  ❌  "
+  exit 1
 fi
 
 
+}
 
-echo "**************************开始导出ipa文件....*********************************"
 
 
+
+
+
+function knxcodeipa() {
+
+
+  echo "**************************开始导出ipa文件....*********************************"
+# Xcode9需要加上 -allowProvisioningUpdates 
+
+xcodebuild  -exportArchive \
+-archivePath ${export_archive_path} \
+-exportPath ${export_ipa_path} \
+-exportOptionsPlist ${ExportOptionsPlistPath} \
+-allowProvisioningUpdates
+
+
+
+# 修改ipa文件名称
+mv $export_ipa_path/$scheme_name.ipa $export_ipa_path/$ipa_name.ipa
+
+
+
+# 检查文件是否存在
+if [ -f "$export_ipa_path/$ipa_name.ipa" ] ; then
+  echo "🎉  🎉  🎉  🎉  🎉  🎉  ${ipa_name} 打包成功! 🎉  🎉  🎉  🎉  🎉  🎉  "
+  open $export_path
+else
+  echo "❌  ❌  ❌  ❌  ❌  ❌  ${ipa_name} 打包失败! ❌  ❌  ❌  ❌  ❌  ❌  "
+  exit 1
+fi
+
+
+# 输出打包总用时
+echo "打包总用时: ${SECONDS}s ~~~~~~~~~~~~~~~~"
+
+}
+
+
+if [ "$method" = "4" ] ; then
+
+knxcodeipa
+else
+
+  knxcodebuildprojectorworkspace
+  knxcodeipa
+fi
 
 
 
