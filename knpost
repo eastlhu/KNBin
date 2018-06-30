@@ -14,13 +14,14 @@ echo $1
 data="`date +%F`"
 postName="$data"-"$1".md
 # 设置标题、子标题、标签
-content="---\nlayout: post\ntitle: "$1"\ndate: "$data"\ntag: "$3"\nsite: https://zhangkn.github.io\ncatalog: true\nauthor: kunnan\nsubtitle: "$2"\n---\n\n# see also \n"
+content="---\nlayout: post\ntitle: "$1"\ndate: "$data"\ntag: "$3"\nsite: https://zhangkn.github.io\ncatalog: true\nauthor: kunnan\nsubtitle: "$2"\n---\n\n# See Also \n"
 echo ${content} > ${postName}
 echo  ${kncommand} >> ${postName}
 # echo  "$kncommand" >> ${postName}
 # open -b com.sublimetext.3 ${postName}
 # Opens with the specified application bundle identifier. com.uranusjr.macdown
-open -b com.uranusjr.macdown ${postName}
+# open -b com.uranusjr.macdown ${postName}
+ open -b abnerworks.Typora ${postName}
 
 echo ${postName}
 
