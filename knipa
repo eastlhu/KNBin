@@ -11,5 +11,8 @@ postName="$data"-".ipa"
 zip -r -q "$postName" ./Payload; 
 rm -rf ./Payload;
 open .
+# 移动ipa包到特定目录
+cp -a "$postName" /Users/devzkn/Downloads/wxPayload
+open /Users/devzkn/Downloads/wxPayload
 echo "==================MonkeyDev(done)=================="
 exit;

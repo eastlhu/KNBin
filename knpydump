@@ -1,0 +1,16 @@
+#!/bin/sh
+# iphone 的配置Start Cydia and add Frida’s repository by navigating to Manage -> Sources -> Edit -> Add and entering https://build.frida.re
+# frida-ps -Uai 查看，来获取参数
+# devzkndeMBP:bin devzkn$ frida-ps -Ua
+  # PID  Name       Identifier        
+# -----  ---------  ------------------
+# 14790  App Store  com.apple.AppStore
+# usage: devzkndeMacBook-Pro:~ devzkn$ kndump 邮件
+# ./dump.py 'App Store'
+# dump app   
+echo "" > ~/.ssh/known_hosts
+cd ~/code/jb/frida-ios-dump
+rm -rf ./Payload
+/usr/bin/python ./dump.py $1
+open .
+exit 0
