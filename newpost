@@ -1,0 +1,47 @@
+#!/bin/sh
+# 根据标题创建post ,#第一个参数是标题，第二个个参数的分类tag devzkndeMacBook-Pro:zhangkn.github.io devzkn$ post PowerfulClanSociety -t OutlineOfChineseHistory
+#  post frida
+# 获取当前系统的时间
+cd /Users/devzkn/githubPages/pua1203.github.io.git/_posts
+#  knpost currency  "<吴军的谷歌方法论>之'货币的起源及其特质'" -t GoogleMethodology
+kncommand=">* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) \n>\n\`\`\`\n$0 $*\n> #原来\"\"的参数，需要自己加上\"\"\n\`\`\`\n"
+echo "$kncommand"
+# /Users/devzkn/bin/newpost currency <吴军的谷歌方法论>之'货币的起源及其特质' -t GoogleMethodology
+#  原来""的参数，需要自己加上""
+#第一个参数是标题，第二个参数的分类tag
+function knpost() {
+echo $1
+data="`date +%F`"
+postName="$data"-"$1".md
+# 设置标题、子标题、标签
+content="---\nlayout: post\ntitle: "$1"\ndate: "$data"\ntag: "$3"\nsite: https://zhangkn.github.io\ncatalog: true\nauthor: kunnan\nsubtitle: "$2"\n---\n\n# See Also \n"
+echo ${content} > ${postName}
+echo  ${kncommand} >> ${postName}
+# echo  "$kncommand" >> ${postName}
+# open -b com.sublimetext.3 ${postName}
+# Opens with the specified application bundle identifier. com.uranusjr.macdown
+# open -b com.uranusjr.macdown ${postName}
+ open -b abnerworks.Typora ${postName}
+
+echo ${postName}
+
+}
+
+if [ "$3" = "-t"  ] ;then
+
+mkdir -p $4
+
+cd $4
+# 标题、子标题、标签  "$2",是想要获取整个参数：Advanced Google Dorking Commands； $2 将只是Advanced
+knpost $1  "$2" $4
+
+
+#elif  [ "$1" = "ip"  ] ;then
+ 
+else
+# 标题、子标题、默认表情
+  knpost $1 $2  "iosre"
+fi
+
+
+exit 0
