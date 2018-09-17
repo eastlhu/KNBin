@@ -2,9 +2,9 @@
 # 根据标题创建post ,#第一个参数是标题，第二个个参数的分类tag devzkndeMacBook-Pro:zhangkn.github.io devzkn$ post PowerfulClanSociety -t OutlineOfChineseHistory
 #  post frida
 # 获取当前系统的时间
-cd /Users/devzkn/githubPages/pua1203.github.io.git/_posts
+cd /Users/devzkn/githubPages/pua1203.github.io/_posts
 #  knpost currency  "<吴军的谷歌方法论>之'货币的起源及其特质'" -t GoogleMethodology
-kncommand=">* [knpost](https://github.com/zhangkn/KNBin/blob/master/knpost) \n>\n\`\`\`\n$0 $*\n> #原来\"\"的参数，需要自己加上\"\"\n\`\`\`\n"
+kncommand=">* newpost \n>\n\`\`\`\n$0 $*\n> #原来\"\"的参数，需要自己加上\"\"\n\`\`\`\n"
 echo "$kncommand"
 # /Users/devzkn/bin/newpost currency <吴军的谷歌方法论>之'货币的起源及其特质' -t GoogleMethodology
 #  原来""的参数，需要自己加上""
