@@ -44,4 +44,7 @@ git add .
 git commit -m "first commit"
 git remote add origin $1
 git push -u origin master
+# git强制提交本地分支覆盖远程分支
+#git push origin 分支名 --force
+git push origin master --force
 exit 0
