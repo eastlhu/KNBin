@@ -12,7 +12,8 @@ zip -r -q "$postName" ./Payload;
 rm -rf ./Payload;
 open .
 # 移动ipa包到特定目录
-cp -a "$postName" /Users/devzkn/Downloads/wxPayload
-open /Users/devzkn/Downloads/wxPayload
+mkdir -p ~/Downloads/knPayload
+cp -a "$postName" ~/Downloads/knPayload
+open ~/Downloads/knPayload
 echo "==================MonkeyDev(done)=================="
 exit;
